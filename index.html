@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<!--
+  SnapType — Landing Page
+  ══════════════════════════════════════════════════════════════════
+  To split into separate files later:
+    styles.css  → already exists alongside this file
+    script.js   → already exists alongside this file
+    assets/     → favicon-32.png, apple-touch-icon.png, icon300.png
+
+  Current file structure:
+    index.html          ← this file (HTML only, no inline JS/CSS)
+    styles.css          ← all custom CSS
+    script.js           ← live demo module (IIFE, no globals)
+    favicon-32.png      ← 32×32 favicon
+    apple-touch-icon.png← 180×180 Apple touch icon
+    icon300.png         ← 300×300 logo / og:image
+  ══════════════════════════════════════════════════════════════════
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ── Primary meta ────────────────────────────────────────────── -->
+  <title>SnapType — Write it once. Reuse it everywhere.</title>
+  <meta
+    name="description"
+    content="Turn repetitive text into shortcuts. Expand emails, replies, signatures, and templates instantly while you type — local-first, no account required."
+  >
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0F0F11">
+
+  <!--
+    TODO: fill in the deployed URL once the page is live.
+    <link rel="canonical" href="https://YOURSITE.com/">
+    <meta property="og:url"   content="https://YOURSITE.com/">
+    <meta property="og:image" content="https://YOURSITE.com/icon300.png">
+  -->
+
+  <!-- ── Open Graph ─────────────────────────────────────────────── -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="SnapType — Write it once. Reuse it everywhere.">
+  <meta property="og:description" content="Turn repetitive typing into shortcuts. Expand text instantly, create dynamic templates, and use AI without leaving your workflow.">
+
+  <!-- ── Icons
+       Embedded as data URIs so the page works on any static host.
+       Replace href values with file paths once you have a web server:
+         favicon-32.png   → /favicon-32.png
+         apple-touch-icon → /apple-touch-icon.png
+  ─────────────────────────────────────────────────────────────────── -->
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAADE0lEQVRYhcWXX0hTURzHv+fc3e3eu3sdha6VaMttJQpW+pLT/khI0WMQQlD0NMFcD0GvvgX1EEWWUBH0EKZUz0FBZZBiQZSh6NyWGEWNoey6uevuzl0PMlGidHqd35dz4fzu+XzOvYfDOQTL4na7XTxvu6xpCycMg3kBSDAhhBCVUjphtVr7stlMz9TUlLbUl3/w+arPplLJe+l0WjYMwwzuX+E4Dooih3heOh0Oj40uCfh81WdVNfFY0zTy/yHMiaIoM5IkNIVCoXHidrtdmUx2MpVKycWA5+NwOEanp6cOcGVlO7pUVW3J5XLF5IMx5ty9u/InZ7crNzRN21FUOgDDMMBxvIMylq0qNjwfxrJ1lBBi3yoBAA5q1kgejwfXr1+Dx+Mp6L1VBfylpejzN6LV9f9lEgx2or09gGCw01yBS3t9OLlrJ/qa/Ljo8/6zzmrlV7SmCfSEI0hls+AIwdX9dbhVfxA8Ne3PrS7wLhZD6+u3+D4/DwC4ULUHz5r9cPCFzXTdAgAwpqpoffMWn2ZmAQBHnU68Od4Cn7LxzXPN3/JXWsOpgQE8nf4OAKiSZbxsOYbmsrLiCACAxgwEPnzEjfEJAMA2qxXPDjehXBSLI7AZsRRSLHAU3Q0NOFNZAQCYzWRwbmgYP9LpzRdwiQJ6GxtRv30bACCaTKLt/SAm55Lrhq9ZoKakBP3NflRIiye0gVgM54eGkdD1DcHXJHDE6cQT/yHYLYulj6LfcOXzF+gmHdtWFejwemC3WMByOXSNfMXdybAp4DUL3A5NAgAeRqN49ev3P+syGX1Fa5rAYDyOwXh81YG6u+9gYWEB9+8/KEiAlJdX5JLJja3k9UaWZVBCiLoldAAAmaOUciNbhaeURqkoCr0WS0EbollwiKLwggCwVFa6PycSidpiCiiKotpsvI8CyNps8hlFUWaKBRcEISdJQiASicSW7oJeb02trs8/n5tL7mOMbQqYUgq73a5KkhAIhUL9wLLb8aKE1wbQDl3PtDFmVBuG4TADTAhJUcqFRVF4wZh+MxKJxPJ9fwALaQR1FukfpQAAAABJRU5ErkJggg==">
+  <link rel="apple-touch-icon"                    href="data:image/png;base64,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">
+
+  <!-- ── Performance: early connection to CDN origins ───────────── -->
+  <!--
+    Note: preconnect hints are included without the crossorigin attribute
+    because Font Awesome on cdnjs is loaded as a plain stylesheet (no CORS).
+    Adding crossorigin to preconnect but not to the <link> tag causes the
+    browser to open two connections instead of one.
+  -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!-- ── Tailwind CSS ───────────────────────────────────────────── -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            snap: {
+              bg:          "#0F0F11",
+              surface:     "#18181B",
+              card:        "#202023",
+              border:      "#27272A",
+              accent:      "#FF6363",
+              accentHover: "#FF4D4D",
+              text:        "#F4F4F5",
+              muted:       "#A1A1AA"
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- ── Font Awesome 6.4 ───────────────────────────────────────── -->
+  <!--
+    IMPORTANT: do NOT add crossorigin="anonymous" to this link.
+    cdnjs.cloudflare.com does not send CORS headers for this resource.
+    Adding crossorigin would cause the browser to block the stylesheet,
+    breaking every icon on the page.
+  -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
+
+  <!-- ── Custom styles ──────────────────────────────────────────── -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="text-snap-text font-sans antialiased selection:bg-snap-accent selection:text-white">
+
+<!-- ════════════════════════════════════════════════════════════════
+     NAVIGATION
+     ════════════════════════════════════════════════════════════════ -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-snap-bg/80 backdrop-blur-xl border-b border-snap-border">
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 h-16 flex items-center justify-between">
+
+    <a href="#" class="flex items-center gap-3" aria-label="SnapType home">
+      <img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAYAAAB5fY51AAAWfmNhQlgAABZ+anVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNjMnBhAAAAFlhqdW1iAAAAR2p1bWRjMm1hABEAEIAAAKoAOJtxA3VybjpjMnBhOmJmNTM2MGM5LWQyNTQtNGY5MS05NTFjLTZmMWIzMWI0MWQyNAAAAAOTanVtYgAAAClqdW1kYzJhcwARABCAAACqADibcQNjMnBhLmFzc2VydGlvbnMAAAAAuGp1bWIAAABEanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5pbmdyZWRpZW50LnYzAAAAABhjMnNokmSiKfen97kGildXn1O56wAAAGxjYm9yo2lkYzpmb3JtYXRpaW1hZ2UvcG5namluc3RhbmNlSUR4LHhtcDppaWQ6Mzc2MDc1NWEtODA3MC00MDU5LWEzYjctMGZhZmZiYmU0ODBibHJlbGF0aW9uc2hpcGhwYXJlbnRPZgAAAeJqdW1iAAAAQWp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuYWN0aW9ucy52MgAAAAAYYzJzaLk81tZ5bQJZHIV+v13FykoAAAGZY2JvcqJnYWN0aW9uc4KiZmFjdGlvbmtjMnBhLm9wZW5lZGpwYXJhbWV0ZXJzoWtpbmdyZWRpZW50c4GiY3VybHgtc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5pbmdyZWRpZW50LnYzZGhhc2hYIGQ2YfoGMdpeRzzhmP0HCK0WNTdFjmLwtcGf1GfdRx22pGZhY3Rpb254HWNvbS5hbnRocm9waWMuY2xhdWRlLnByb3ZpZGVkanBhcmFtZXRlcnOheB9jb20uYW50aHJvcGljLm9yaWdpbi1jb25maWRlbmNlZ3Vua25vd25rZGVzY3JpcHRpb254ZkNsYXVkZSBwcm92aWRlZCB0aGlzIGZpbGUgYXQgdGhlIHJlcXVlc3Qgb2YgYSB1c2VyIGFuZCBtYXkgaGF2ZSBjcmVhdGVkIG9yIG1vZGlmaWVkIHRoZSBmaWxlIGNvbnRlbnRzLm1zb2Z0d2FyZUFnZW50oWRuYW1lZkNsYXVkZXJhbGxBY3Rpb25zSW5jbHVkZWT1AAAAyGp1bWIAAABAanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5oYXNoLmRhdGEAAAAAGGMyc2gNj9ZtcDR6dYOyQwAh1CldAAAAgGNib3KlY2FsZ2ZzaGEyNTZjcGFkTQAAAAAAAAAAAAAAAABkaGFzaFggzYAp3qCpG2HhKQ+8kyIMz5zuUSc+EHpu6jL9gqA6389kbmFtZW5qdW1iZiBtYW5pZmVzdGpleGNsdXNpb25zgaJlc3RhcnQYIWZsZW5ndGgZFooAAAI+anVtYgAAACdqdW1kYzJjbAARABCAAACqADibcQNjMnBhLmNsYWltLnYyAAAAAg9jYm9ypWNhbGdmc2hhMjU2aXNpZ25hdHVyZXhNc2VsZiNqdW1iZj0vYzJwYS91cm46YzJwYTpiZjUzNjBjOS1kMjU0LTRmOTEtOTUxYy02ZjFiMzFiNDFkMjQvYzJwYS5zaWduYXR1cmVqaW5zdGFuY2VJRHgseG1wOmlpZDo1MmUxZjE4Mi1mYzFmLTQwNjItOTExOC02ODc4YmNkMWNjNjhyY3JlYXRlZF9hc3NlcnRpb25zg6JjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggZDZh+gYx2l5HPOGY/QcIrRY1N0WOYvC1wZ/UZ91HHbaiY3VybHgqc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5hY3Rpb25zLnYyZGhhc2hYIBKB6cjTEGbAkU1W2CF2YNFnWqDrEUjigCr3wUxN8dI0omN1cmx4KXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaGFzaC5kYXRhZGhhc2hYIL19TXFrgVGUHyYPCPvzzo49Nv1215vng5RJlOm9AoAJdGNsYWltX2dlbmVyYXRvcl9pbmZvo2RuYW1lb0FudGhyb3BpYyBGaWxlc2d2ZXJzaW9uZTEuMC4wa3NwZWNWZXJzaW9uZTIuNC4wAAAQOGp1bWIAAAAoanVtZGMyY3MAEQAQgAAAqgA4m3EDYzJwYS5zaWduYXR1cmUAAAAQCGNib3LShFkCEqIBJhghWQIKMIICBjCCAY2gAwIBAgIUQOWgCu7COdC+uIP6BkIFPWdVEwAwCgYIKoZIzj0EAwMwSTEXMBUGA1UEChMOQW50aHJvcGljLCBQQkMxLjAsBgNVBAMTJUFudGhyb3BpYyBDb250ZW50IENyZWRlbnRpYWxzIFJvb3QgQ0EwHhcNMjYwODA3MTg0MzU2WhcNMjgwODA2MTk0MzU2WjBEMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEpMCcGA1UEAxMgQW50aHJvcGljIENsYXVkZSBDb250ZW50IFNpZ25pbmcwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASYegpry1AYBRTVNL1CpTlbROnY3dey+UrsF9C3phYrATN3ZHf93Mo8RQN0KOUuOn19P4oWNFWe5n2/She9N7eTo1gwVjAOBgNVHQ8BAf8EBAMCB4AwFQYDVR0lBA4wDAYKKwYBBAGD6F4CATAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFM5R4gSBTmRbI/jjxM+aPpzB11zCMAoGCCqGSM49BAMDA2cAMGQCMDFzHRSeAXrSy1WOzkbhPZ6Km2wGTmZ/2gK18k8BQGXyqz88Rdrz6CTX9flAnYNVxgIwcF9c3fVhqmJKpi+UhasNUMko69cyX6STPfta3Q8EjyzDjzoyrol46FP6VFHhvUcJoWNwYWRZDZ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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"
+        alt=""
+        aria-hidden="true"
+        width="36"
+        height="36"
+        class="rounded-lg"
+        decoding="async"
+      >
+      <span class="font-bold text-xl tracking-tight text-white">SnapType</span>
+    </a>
+
+    <nav aria-label="Primary navigation" class="hidden lg:flex items-center gap-7 text-sm font-medium text-snap-muted">
+      <a href="#demo"           class="hover:text-white transition-colors duration-150">Demo</a>
+      <a href="#features"       class="hover:text-white transition-colors duration-150">Features</a>
+      <a href="#templates"      class="hover:text-white transition-colors duration-150">Templates</a>
+      <a href="#ai"             class="hover:text-white transition-colors duration-150">AI</a>
+      <a href="#privacy"        class="hover:text-white transition-colors duration-150">Privacy</a>
+      <a href="#faq"            class="hover:text-white transition-colors duration-150">FAQ</a>
+    </nav>
+
+    <a
+      href="https://microsoftedge.microsoft.com/addons/detail/snaptype-%E2%80%94-text-expander/gmdomkjgpeakipcokgjikaaiiclkdeej"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="bg-snap-accent hover:bg-snap-accentHover text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-150 shadow-lg shadow-snap-accent/20 flex items-center gap-2"
+    >
+      <i class="fa-brands fa-edge" aria-hidden="true"></i>
+      <span>Get SnapType</span>
+    </a>
+
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ════════════════════════════════════════════════════════════════ -->
+<main>
+
+  <!-- ── HERO ──────────────────────────────────────────────────── -->
+  <section aria-labelledby="hero-heading" class="relative overflow-hidden pt-32 pb-16 md:pt-44 md:pb-24 grid-bg">
+
+    <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-snap-accent/10 blur-[140px] rounded-full pointer-events-none" aria-hidden="true"></div>
+
+    <div class="max-w-5xl mx-auto px-5 sm:px-6 text-center relative z-10">
+
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-snap-surface border border-snap-border text-xs text-snap-accent font-medium mb-7" aria-hidden="true">
+        <span class="w-1.5 h-1.5 rounded-full bg-snap-accent"></span>
+        Local-first text expansion for Microsoft Edge
+      </div>
+
+      <h1 id="hero-heading" class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.05]">
+        Write it once.<br>
+        Reuse it <span class="gradient-text">everywhere.</span>
+      </h1>
+
+      <p class="mt-7 text-lg md:text-xl text-snap-muted max-w-2xl mx-auto leading-relaxed">
+        Turn emails, replies, signatures, and repetitive text into
+        shortcuts you can expand instantly while typing.
+      </p>
+
+      <!-- CTAs -->
+      <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a
+          href="https://microsoftedge.microsoft.com/addons/detail/snaptype-%E2%80%94-text-expander/gmdomkjgpeakipcokgjikaaiiclkdeej"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-full sm:w-auto bg-snap-accent hover:bg-snap-accentHover text-white px-7 py-3.5 rounded-xl font-semibold transition-all duration-150 shadow-xl shadow-snap-accent/20 flex items-center justify-center gap-3"
+        >
+          <i class="fa-brands fa-edge text-lg" aria-hidden="true"></i>
+          <span>Get SnapType &mdash; It&rsquo;s Free</span>
+        </a>
+        <a
+          href="https://github.com/PhamNgocDuyKhanh/SnapType"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-full sm:w-auto bg-snap-surface hover:bg-snap-card text-white border border-snap-border px-7 py-3.5 rounded-xl font-semibold transition-all duration-150 flex items-center justify-center gap-3"
+        >
+          <i class="fa-brands fa-github text-lg" aria-hidden="true"></i>
+          <span>View on GitHub</span>
+        </a>
+      </div>
+
+      <!-- Micro examples: <dl> pairs abbreviation → description semantically -->
+      <div class="mt-7 max-w-md mx-auto" aria-label="Shortcut examples">
+        <dl class="grid grid-cols-[max-content_24px_1fr] gap-x-3 gap-y-2 items-center text-xs sm:text-sm text-left">
+          <dt><code class="font-mono text-snap-accent bg-snap-surface border border-snap-border px-2.5 py-1 rounded-md">/sig</code></dt>
+          <dd class="text-zinc-600 text-center" aria-hidden="true">&rarr;</dd>
+          <dd class="text-snap-muted">Your full email signature</dd>
+
+          <dt><code class="font-mono text-snap-accent bg-snap-surface border border-snap-border px-2.5 py-1 rounded-md">/followup</code></dt>
+          <dd class="text-zinc-600 text-center" aria-hidden="true">&rarr;</dd>
+          <dd class="text-snap-muted">Your follow-up email</dd>
+
+          <dt><code class="font-mono text-snap-accent bg-snap-surface border border-snap-border px-2.5 py-1 rounded-md">/addr</code></dt>
+          <dd class="text-zinc-600 text-center" aria-hidden="true">&rarr;</dd>
+          <dd class="text-snap-muted">Your address</dd>
+        </dl>
+      </div>
+
+      <!-- Trust signals -->
+      <ul class="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-snap-muted list-none">
+        <li><i class="fa-solid fa-check text-snap-accent mr-1" aria-hidden="true"></i>No account required</li>
+        <li><i class="fa-solid fa-check text-snap-accent mr-1" aria-hidden="true"></i>Local-first</li>
+        <li><i class="fa-solid fa-check text-snap-accent mr-1" aria-hidden="true"></i>Open source</li>
+      </ul>
+
+    </div>
+  </section>
+
+  <!-- ── LIVE DEMO ─────────────────────────────────────────────── -->
+  <section id="demo" aria-labelledby="demo-heading" class="py-20 border-y border-snap-border bg-snap-surface/30">
+    <div class="max-w-4xl mx-auto px-5 sm:px-6">
+
+      <div class="text-center mb-10">
+        <p class="text-xs uppercase tracking-[0.2em] text-snap-accent font-semibold mb-3" aria-hidden="true">Try it</p>
+        <h2 id="demo-heading" class="text-3xl md:text-4xl font-bold text-white">
+          See the shortcut become the sentence.
+        </h2>
+        <p class="mt-4 text-snap-muted max-w-xl mx-auto">
+          Type a shortcut below or click one of the examples.
+        </p>
+      </div>
+
+      <div class="bg-snap-surface border border-snap-border rounded-2xl p-5 sm:p-6 hero-glow">
+
+        <!-- Trigger buttons — data-shortcut read by script.js -->
+        <div class="flex flex-wrap items-center gap-2 mb-5">
+          <span class="text-xs text-snap-muted mr-1" aria-hidden="true">Try:</span>
+          <button type="button" data-shortcut="/sig"
+            class="shortcut-btn bg-snap-bg hover:border-snap-accent border border-snap-border text-xs px-3 py-1.5 rounded-lg text-snap-accent font-mono transition-colors duration-150"
+            aria-label="Expand /sig shortcut in demo">/sig</button>
+          <button type="button" data-shortcut="/thanks"
+            class="shortcut-btn bg-snap-bg hover:border-snap-accent border border-snap-border text-xs px-3 py-1.5 rounded-lg text-snap-accent font-mono transition-colors duration-150"
+            aria-label="Expand /thanks shortcut in demo">/thanks</button>
+          <button type="button" data-shortcut="/followup"
+            class="shortcut-btn bg-snap-bg hover:border-snap-accent border border-snap-border text-xs px-3 py-1.5 rounded-lg text-snap-accent font-mono transition-colors duration-150"
+            aria-label="Expand /followup shortcut in demo">/followup</button>
+        </div>
+
+        <label for="playground" class="sr-only">SnapType shortcut playground</label>
+        <div class="relative">
+          <textarea
+            id="playground"
+            rows="6"
+            spellcheck="false"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            class="w-full bg-snap-bg border border-snap-border rounded-xl p-4 pr-20 text-sm font-mono text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-snap-accent/30 focus:border-snap-accent transition-colors duration-150 resize-none overflow-y-auto"
+            placeholder="Type /sig and press Space..."
+          ></textarea>
+          <button
+            id="clearBtn"
+            type="button"
+            class="absolute top-3 right-3 text-xs text-snap-muted hover:text-white bg-snap-surface px-2.5 py-1.5 rounded-lg border border-snap-border transition-colors duration-150"
+            aria-label="Clear playground"
+          >Clear</button>
+        </div>
+
+        <!-- aria-live announces expansion results to screen readers -->
+        <div class="mt-4 flex items-center justify-between text-xs">
+          <p id="demoStatus" class="text-snap-muted" aria-live="polite" aria-atomic="true"></p>
+          <span class="font-mono text-zinc-600" aria-hidden="true">LIVE DEMO</span>
+        </div>
+
+      </div>
+
+      <!-- Shortcut legend -->
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3" aria-label="Available demo shortcuts">
+        <div class="p-4 rounded-xl bg-snap-surface border border-snap-border">
+          <p class="text-snap-accent font-mono text-sm mb-1">/sig</p>
+          <p class="text-xs text-snap-muted">Your signature</p>
+        </div>
+        <div class="p-4 rounded-xl bg-snap-surface border border-snap-border">
+          <p class="text-snap-accent font-mono text-sm mb-1">/thanks</p>
+          <p class="text-xs text-snap-muted">A thank-you reply</p>
+        </div>
+        <div class="p-4 rounded-xl bg-snap-surface border border-snap-border">
+          <p class="text-snap-accent font-mono text-sm mb-1">/followup</p>
+          <p class="text-xs text-snap-muted">A follow-up email</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FEATURES ──────────────────────────────────────────────── -->
+  <section id="features" aria-labelledby="features-heading" class="py-24">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6">
+
+      <div class="max-w-2xl mb-14">
+        <p class="text-xs uppercase tracking-[0.2em] text-snap-accent font-semibold mb-4" aria-hidden="true">Core features</p>
+        <h2 id="features-heading" class="text-3xl md:text-5xl font-bold text-white leading-tight">
+          Stop typing things
+          <span class="text-snap-muted">you&rsquo;ve already typed.</span>
+        </h2>
+        <p class="mt-5 text-snap-muted leading-relaxed">
+          Save the text you use repeatedly and bring it back with a short, memorable shortcut.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <article class="bg-snap-surface border border-snap-border p-7 rounded-2xl group hover:border-snap-accent/40 transition-colors duration-150">
+          <div class="w-11 h-11 rounded-xl bg-snap-accent/10 text-snap-accent flex items-center justify-center text-lg mb-6 group-hover:scale-125 transition-transform duration-200">
+            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Instant expansion</h3>
+          <p class="text-sm text-snap-muted leading-relaxed">
+            Turn long replies, signatures, addresses, templates, and frequently used phrases into short shortcuts.
+          </p>
+        </article>
+
+        <article class="bg-snap-surface border border-snap-border p-7 rounded-2xl group hover:border-snap-accent/40 transition-colors duration-150">
+          <div class="w-11 h-11 rounded-xl bg-snap-accent/10 text-snap-accent flex items-center justify-center text-lg mb-6 group-hover:scale-125 transition-transform duration-200">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Works where you write</h3>
+          <p class="text-sm text-snap-muted leading-relaxed">
+            Use shortcuts in the web apps and editors where you already write, without constantly switching to another app.
+          </p>
+        </article>
+
+        <article class="bg-snap-surface border border-snap-border p-7 rounded-2xl group hover:border-snap-accent/40 transition-colors duration-150">
+          <div class="w-11 h-11 rounded-xl bg-snap-accent/10 text-snap-accent flex items-center justify-center text-lg mb-6 group-hover:scale-125 transition-transform duration-200">
+            <i class="fa-solid fa-keyboard" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Built for real typing</h3>
+          <p class="text-sm text-snap-muted leading-relaxed">
+            Designed around real keyboard input, composition events, and the realities of browser-based editors.
+          </p>
+        </article>
+
+        <article class="bg-snap-surface border border-snap-border p-7 rounded-2xl group hover:border-snap-accent/40 transition-colors duration-150">
+          <div class="w-11 h-11 rounded-xl bg-snap-accent/10 text-snap-accent flex items-center justify-center text-lg mb-6 group-hover:scale-125 transition-transform duration-200">
+            <i class="fa-solid fa-language" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Vietnamese IME friendly</h3>
+          <p class="text-sm text-snap-muted leading-relaxed">
+            Works with Vietnamese input methods such as Unikey and EVKey, including Telex and VNI composition.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SMART TEMPLATES ───────────────────────────────────────── -->
+  <section id="templates" aria-labelledby="templates-heading" class="py-24 border-y border-snap-border bg-snap-surface/20">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+
+        <div>
+          <p class="text-xs uppercase tracking-[0.2em] text-snap-accent font-semibold mb-4" aria-hidden="true">Smart templates</p>
+          <h2 id="templates-heading" class="text-3xl md:text-5xl font-bold text-white leading-tight mb-6">
+            Your shortcuts don&rsquo;t have to be static.
+          </h2>
+          <p class="text-snap-muted leading-relaxed mb-8">
+            Go beyond static snippets with dates, clipboard content, cursor control, and interactive fields.
+          </p>
+          <ul class="space-y-4 list-none">
+            <li class="flex gap-3">
+              <i class="fa-solid fa-check text-snap-accent mt-1" aria-hidden="true"></i>
+              <div>
+                <p class="text-sm font-semibold text-white">Dynamic dates</p>
+                <p class="text-xs text-snap-muted mt-1">Automatically insert the current date.</p>
+              </div>
+            </li>
+            <li class="flex gap-3">
+              <i class="fa-solid fa-check text-snap-accent mt-1" aria-hidden="true"></i>
+              <div>
+                <p class="text-sm font-semibold text-white">Clipboard content</p>
+                <p class="text-xs text-snap-muted mt-1">Drop copied content directly into a template.</p>
+              </div>
+            </li>
+            <li class="flex gap-3">
+              <i class="fa-solid fa-check text-snap-accent mt-1" aria-hidden="true"></i>
+              <div>
+                <p class="text-sm font-semibold text-white">Interactive fields</p>
+                <p class="text-xs text-snap-muted mt-1">Ask for information as the snippet expands.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Token reference card -->
+        <div class="bg-snap-surface border border-snap-border p-5 sm:p-6 rounded-2xl card-glow">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-bold text-white">Dynamic tokens</h3>
+            <span class="text-xs font-mono text-snap-muted" aria-hidden="true">AUTO</span>
+          </div>
+          <!-- <dl> pairs each token with its description -->
+          <dl class="space-y-3 font-mono text-xs">
+            <div class="flex items-center justify-between gap-4 p-3 bg-snap-bg rounded-lg border border-snap-border">
+              <dt class="text-snap-accent">{{date}}</dt>
+              <dd class="text-snap-muted font-sans text-right">Current date</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4 p-3 bg-snap-bg rounded-lg border border-snap-border">
+              <dt class="text-snap-accent">{{clipboard}}</dt>
+              <dd class="text-snap-muted font-sans text-right">Clipboard content</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4 p-3 bg-snap-bg rounded-lg border border-snap-border">
+              <dt class="text-snap-accent">{{cursor}}</dt>
+              <dd class="text-snap-muted font-sans text-right">Cursor position</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4 p-3 bg-snap-bg rounded-lg border border-snap-border">
+              <dt class="text-snap-accent">{{input:Customer Name}}</dt>
+              <dd class="text-snap-muted font-sans text-right">Ask for input</dd>
+            </div>
+          </dl>
+          <div class="mt-5 pt-5 border-t border-snap-border">
+            <p class="text-xs text-snap-muted mb-3">Example</p>
+            <div class="bg-snap-bg rounded-xl border border-snap-border p-4 font-mono text-sm leading-7 text-white" aria-label="Example template using dynamic tokens">
+              Hi <span class="text-snap-accent">{{input:Customer Name}}</span>,<br>
+              Your invoice from <span class="text-snap-accent">{{date}}</span> is ready.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMMAND PALETTE ───────────────────────────────────────── -->
+  <section id="command-palette" aria-labelledby="palette-heading" class="py-24">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+
+        <div>
+          <p class="text-xs uppercase tracking-[0.2em] text-snap-accent font-semibold mb-4" aria-hidden="true">Command palette</p>
+          <h2 id="palette-heading" class="text-3xl md:text-5xl font-bold text-white leading-tight mb-6">
+            Find a shortcut
+            <span class="text-snap-muted">in seconds.</span>
+          </h2>
+          <p class="text-snap-muted leading-relaxed mb-7">
+            Search your snippets, trigger actions, and access commands
+            without digging through settings or menus.
+          </p>
+          <p class="flex items-center gap-2 text-sm text-snap-muted">
+            <span>Open with your</span>
+            <kbd class="bg-snap-surface border border-snap-border px-2.5 py-1 rounded-md text-white font-mono">configured shortcut</kbd>
+          </p>
+        </div>
+
+        <!-- Decorative mockup — fully hidden from assistive technology -->
+        <div class="bg-snap-surface border border-snap-border rounded-2xl p-5 shadow-2xl" aria-hidden="true">
+          <div class="flex items-center gap-3 bg-snap-bg border border-snap-border rounded-xl px-4 py-3 mb-4">
+            <i class="fa-solid fa-magnifying-glass text-snap-muted"></i>
+            <span class="text-sm text-snap-muted">Search snippets or commands...</span>
+            <span class="ml-auto text-xs text-snap-muted font-mono">ESC</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-snap-bg border border-snap-border">
+              <div class="w-8 h-8 rounded-lg bg-snap-accent/10 text-snap-accent flex items-center justify-center">
+                <i class="fa-regular fa-at"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-white">/sig</p>
+                <p class="text-xs text-snap-muted">Insert email signature</p>
+              </div>
+              <span class="ml-auto text-xs text-zinc-600 font-mono">&#x21B5;</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-snap-bg border border-snap-border">
+              <div class="w-8 h-8 rounded-lg bg-snap-accent/10 text-snap-accent flex items-center justify-center">
+                <i class="fa-solid fa-reply"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-white">/followup</p>
+                <p class="text-xs text-snap-muted">Insert follow-up template</p>
+              </div>
+              <span class="ml-auto text-xs text-zinc-600 font-mono">&#x21B5;</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-snap-bg border border-snap-border">
+              <div class="w-8 h-8 rounded-lg bg-snap-accent/10 text-snap-accent flex items-center justify-center">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-white">Rewrite with AI</p>
+                <p class="text-xs text-snap-muted">Improve the selected text</p>
+              </div>
+              <span class="ml-auto text-xs text-zinc-600 font-mono">&#x21B5;</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── AI ────────────────────────────────────────────────────── -->
+  <section id="ai" aria-labelledby="ai-heading" class="py-24 border-y border-snap-border bg-snap-surface/20">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-xs text-purple-300 font-medium mb-6">
+            <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+            Optional AI
+          </div>
+          <h2 id="ai-heading" class="text-3xl md:text-5xl font-bold text-white leading-tight mb-6">
+            AI without leaving
+            <span class="text-snap-muted">the page.</span>
+          </h2>
+          <p class="text-snap-muted leading-relaxed mb-8">
+            Rewrite, translate, summarize, fix grammar, or draft a response
+            while staying inside your existing workflow.
+          </p>
+          <ul class="space-y-4 list-none">
+            <li class="flex gap-3">
+              <i class="fa-solid fa-check text-snap-accent mt-1" aria-hidden="true"></i>
+              <div>
+                <p class="text-sm font-semibold text-white">Rewrite &amp; polish</p>
+                <p class="text-xs text-snap-muted mt-1">Make text clearer, shorter, friendlier, or more professional.</p>
+              </div>
+            </li>
+            <li class="flex gap-3">
+              <i class="fa-solid fa-check text-snap-accent mt-1" aria-hidden="true"></i>
+              <div>
+                <p class="text-sm font-semibold text-white">Translate &amp; summarize</p>
+                <p class="text-xs text-snap-muted mt-1">Work with selected text without opening another tab.</p>
+              </div>
+            </li>
+            <li class="flex gap-3">
+              <i class="fa-solid fa-check text-snap-accent mt-1" aria-hidden="true"></i>
+              <div>
+                <p class="text-sm font-semibold text-white">Bring your own key</p>
+                <p class="text-xs text-snap-muted mt-1">Connect supported providers directly from the extension.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- AI providers card -->
+        <div class="bg-snap-surface border border-snap-border p-5 sm:p-6 rounded-2xl">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-bold text-white">AI providers</h3>
+            <span class="text-xs font-mono text-snap-muted" aria-hidden="true">BYOK</span>
+          </div>
+          <!--
+            These four rows share identical structure.
+            If you add more providers, consider generating them from a JS data array.
+          -->
+          <ul class="space-y-3 list-none">
+            <li class="flex items-center justify-between p-4 bg-snap-bg rounded-xl border border-snap-border">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400">
+                  <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-white">Groq</p>
+                  <p class="text-xs text-snap-muted">Fast inference</p>
+                </div>
+              </div>
+              <span class="text-xs text-snap-accent">Supported</span>
+            </li>
+            <li class="flex items-center justify-between p-4 bg-snap-bg rounded-xl border border-snap-border">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400">
+                  <i class="fa-solid fa-robot" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-white">OpenAI</p>
+                  <p class="text-xs text-snap-muted">GPT models</p>
+                </div>
+              </div>
+              <span class="text-xs text-snap-accent">Supported</span>
+            </li>
+            <li class="flex items-center justify-between p-4 bg-snap-bg rounded-xl border border-snap-border">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+                  <i class="fa-solid fa-brain" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-white">Anthropic</p>
+                  <p class="text-xs text-snap-muted">Claude models</p>
+                </div>
+              </div>
+              <span class="text-xs text-snap-accent">Supported</span>
+            </li>
+            <li class="flex items-center justify-between p-4 bg-snap-bg rounded-xl border border-snap-border">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400">
+                  <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-white">Google Gemini</p>
+                  <p class="text-xs text-snap-muted">Gemini models</p>
+                </div>
+              </div>
+              <span class="text-xs text-snap-accent">Supported</span>
+            </li>
+          </ul>
+          <div class="mt-5 p-4 rounded-xl bg-snap-bg border border-snap-border">
+            <div class="flex gap-3">
+              <i class="fa-solid fa-shield-halved text-snap-accent mt-0.5" aria-hidden="true"></i>
+              <p class="text-xs text-snap-muted leading-relaxed">
+                Your API key can be kept locally in the browser.
+                SnapType does not need a separate AI proxy server
+                for supported BYOK providers.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRIVACY ───────────────────────────────────────────────── -->
+  <section id="privacy" aria-labelledby="privacy-heading" class="py-24">
+    <div class="max-w-5xl mx-auto px-5 sm:px-6">
+      <div class="bg-snap-surface border border-snap-border rounded-3xl p-7 sm:p-10 md:p-14 text-center card-glow">
+        <div class="mx-auto w-14 h-14 rounded-2xl bg-snap-accent/10 text-snap-accent flex items-center justify-center text-xl mb-7" aria-hidden="true">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <p class="text-xs uppercase tracking-[0.2em] text-snap-accent font-semibold mb-4" aria-hidden="true">Local-first</p>
+        <h2 id="privacy-heading" class="text-3xl md:text-5xl font-bold text-white">
+          Your snippets belong to you.
+        </h2>
+        <p class="mt-5 text-snap-muted max-w-2xl mx-auto leading-relaxed">
+          Keep your shortcuts and settings close to the browser
+          instead of depending on a cloud account for everyday use.
+        </p>
+        <ul class="mt-9 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left list-none">
+          <li class="p-4 rounded-xl bg-snap-bg border border-snap-border">
+            <i class="fa-solid fa-user-slash text-snap-accent mb-3" aria-hidden="true"></i>
+            <p class="text-sm font-semibold text-white">No account required</p>
+            <p class="text-xs text-snap-muted mt-1">Get started without creating another login.</p>
+          </li>
+          <li class="p-4 rounded-xl bg-snap-bg border border-snap-border">
+            <i class="fa-solid fa-database text-snap-accent mb-3" aria-hidden="true"></i>
+            <p class="text-sm font-semibold text-white">Local-first storage</p>
+            <p class="text-xs text-snap-muted mt-1">Keep your everyday configuration in the browser.</p>
+          </li>
+          <li class="p-4 rounded-xl bg-snap-bg border border-snap-border">
+            <i class="fa-solid fa-code text-snap-accent mb-3" aria-hidden="true"></i>
+            <p class="text-sm font-semibold text-white">Open source</p>
+            <p class="text-xs text-snap-muted mt-1">Inspect the project and understand how it works.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── USE CASES ─────────────────────────────────────────────── -->
+  <section id="use-cases" aria-labelledby="usecases-heading" class="py-24 border-y border-snap-border bg-snap-surface/20">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <p class="text-xs uppercase tracking-[0.2em] text-snap-accent font-semibold mb-4" aria-hidden="true">Built for repetition</p>
+        <h2 id="usecases-heading" class="text-3xl md:text-4xl font-bold text-white">Whatever you type repeatedly.</h2>
+        <p class="mt-4 text-snap-muted">Turn recurring words, sentences, and workflows into shortcuts.</p>
+      </div>
+      <ul class="grid grid-cols-2 md:grid-cols-4 gap-3 list-none">
+        <li class="p-5 bg-snap-surface border border-snap-border rounded-xl">
+          <i class="fa-solid fa-envelope text-snap-accent mb-4" aria-hidden="true"></i>
+          <p class="font-semibold text-white text-sm">Email replies</p>
+        </li>
+        <li class="p-5 bg-snap-surface border border-snap-border rounded-xl">
+          <i class="fa-solid fa-headset text-snap-accent mb-4" aria-hidden="true"></i>
+          <p class="font-semibold text-white text-sm">Support responses</p>
+        </li>
+        <li class="p-5 bg-snap-surface border border-snap-border rounded-xl">
+          <i class="fa-solid fa-signature text-snap-accent mb-4" aria-hidden="true"></i>
+          <p class="font-semibold text-white text-sm">Signatures</p>
+        </li>
+        <li class="p-5 bg-snap-surface border border-snap-border rounded-xl">
+          <i class="fa-solid fa-link text-snap-accent mb-4" aria-hidden="true"></i>
+          <p class="font-semibold text-white text-sm">URLs &amp; links</p>
+        </li>
+        <li class="p-5 bg-snap-surface border border-snap-border rounded-xl">
+          <i class="fa-solid fa-file-lines text-snap-accent mb-4" aria-hidden="true"></i>
+          <p class="font-semibold text-white text-sm">Templates</p>
+        </li>
+        <li class="p-5 bg-snap-surface border border-snap-border rounded-xl">
+          <i class="fa-solid fa-code text-snap-accent mb-4" aria-hidden="true"></i>
+          <p class="font-semibold text-white text-sm">Code snippets</p>
+        </li>
+        <li class="p-5 bg-snap-surface border border-snap-border rounded-xl">
+          <i class="fa-solid fa-location-dot text-snap-accent mb-4" aria-hidden="true"></i>
+          <p class="font-semibold text-white text-sm">Addresses</p>
+        </li>
+        <li class="p-5 bg-snap-surface border border-snap-border rounded-xl">
+          <i class="fa-solid fa-comment-dots text-snap-accent mb-4" aria-hidden="true"></i>
+          <p class="font-semibold text-white text-sm">Quick replies</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────── -->
+  <section id="faq" aria-labelledby="faq-heading" class="py-24">
+    <div class="max-w-3xl mx-auto px-5 sm:px-6">
+      <div class="text-center mb-12">
+        <p class="text-xs uppercase tracking-[0.2em] text-snap-accent font-semibold mb-4" aria-hidden="true">FAQ</p>
+        <h2 id="faq-heading" class="text-3xl md:text-4xl font-bold text-white">Questions, answered.</h2>
+      </div>
+      <div class="space-y-3">
+
+        <details class="group bg-snap-surface border border-snap-border rounded-xl">
+          <summary class="cursor-pointer list-none p-5 flex items-center justify-between text-white font-semibold">
+            What is SnapType?
+            <i class="fa-solid fa-chevron-down text-xs text-snap-muted group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-snap-muted leading-relaxed">
+            SnapType is a browser-based text expander. You create shortcuts for text you use repeatedly,
+            then expand those shortcuts while typing.
+          </div>
+        </details>
+
+        <details class="group bg-snap-surface border border-snap-border rounded-xl">
+          <summary class="cursor-pointer list-none p-5 flex items-center justify-between text-white font-semibold">
+            Do I need an account?
+            <i class="fa-solid fa-chevron-down text-xs text-snap-muted group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-snap-muted leading-relaxed">
+            No account is required for the core browser extension experience.
+          </div>
+        </details>
+
+        <details class="group bg-snap-surface border border-snap-border rounded-xl">
+          <summary class="cursor-pointer list-none p-5 flex items-center justify-between text-white font-semibold">
+            Are my snippets or API keys sent to SnapType?
+            <i class="fa-solid fa-chevron-down text-xs text-snap-muted group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-snap-muted leading-relaxed">
+            No. SnapType is local-first with zero telemetry. Your snippets, settings, and API keys are stored
+            locally in your browser and are never sent to a SnapType server.<br><br>
+            AI requests are sent directly from your browser to the AI provider you choose.
+            If a snippet uses an AI token such as <code class="text-snap-accent">{{ai:rewrite}}</code>,
+            only the relevant content is sent to that provider.
+          </div>
+        </details>
+
+        <details class="group bg-snap-surface border border-snap-border rounded-xl">
+          <summary class="cursor-pointer list-none p-5 flex items-center justify-between text-white font-semibold">
+            Can I use AI?
+            <i class="fa-solid fa-chevron-down text-xs text-snap-muted group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-snap-muted leading-relaxed">
+            Yes, if the installed version supports the provider you want to use.
+            AI is optional and can be configured separately from your text-expansion shortcuts.
+          </div>
+        </details>
+
+        <details class="group bg-snap-surface border border-snap-border rounded-xl">
+          <summary class="cursor-pointer list-none p-5 flex items-center justify-between text-white font-semibold">
+            Do I need an API key to use text expansion?
+            <i class="fa-solid fa-chevron-down text-xs text-snap-muted group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-snap-muted leading-relaxed">
+            Text expansion: free, no API key required.<br>
+            AI features: optional, BYOK.
+          </div>
+        </details>
+
+        <details class="group bg-snap-surface border border-snap-border rounded-xl">
+          <summary class="cursor-pointer list-none p-5 flex items-center justify-between text-white font-semibold">
+            Where does my data go?
+            <i class="fa-solid fa-chevron-down text-xs text-snap-muted group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-snap-muted leading-relaxed">
+            SnapType is designed around local-first browser storage for its core configuration.
+            AI requests, when enabled, may be sent directly to the provider configured by you.
+          </div>
+        </details>
+
+        <details class="group bg-snap-surface border border-snap-border rounded-xl">
+          <summary class="cursor-pointer list-none p-5 flex items-center justify-between text-white font-semibold">
+            Does it work with Vietnamese typing?
+            <i class="fa-solid fa-chevron-down text-xs text-snap-muted group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-snap-muted leading-relaxed">
+            Yes. SnapType supports Vietnamese input methods including Unikey and EVKey with both Telex and VNI.<br><br>
+            SnapType pauses snippet detection while you&rsquo;re composing text and only evaluates shortcuts
+            after the composition is complete, helping prevent accidental triggers and ghost characters.
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ──────────────────────────────────────────────── -->
+  <section aria-labelledby="cta-heading" class="py-24">
+    <div class="max-w-4xl mx-auto px-5 sm:px-6 text-center">
+      <div class="bg-snap-surface border border-snap-border rounded-3xl p-8 sm:p-12 md:p-16 hero-glow">
+        <p class="text-xs uppercase tracking-[0.2em] text-snap-accent font-semibold mb-5" aria-hidden="true">Type less</p>
+        <h2 id="cta-heading" class="text-3xl md:text-5xl font-bold text-white leading-tight">
+          Your next shortcut<br>
+          is probably something you already type.
+        </h2>
+        <p class="mt-5 text-snap-muted max-w-xl mx-auto">Save it once. Reuse it whenever you need it.</p>
+        <div class="mt-8">
+          <a
+            href="https://microsoftedge.microsoft.com/addons/detail/snaptype-%E2%80%94-text-expander/gmdomkjgpeakipcokgjikaaiiclkdeej"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-3 bg-snap-accent hover:bg-snap-accentHover text-white px-8 py-3.5 rounded-xl font-semibold transition-all duration-150 shadow-xl shadow-snap-accent/20"
+          >
+            <i class="fa-brands fa-edge text-lg" aria-hidden="true"></i>
+            <span>Get SnapType &mdash; It&rsquo;s Free</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════════════════════ -->
+<footer class="border-t border-snap-border py-5">
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-xs text-snap-muted whitespace-nowrap">
+        <span class="font-semibold text-white">SnapType</span>
+        <span> &mdash; Smart text expansion</span>
+      </p>
+      <nav aria-label="Footer navigation" class="flex items-center gap-5 text-xs text-snap-muted whitespace-nowrap">
+        <a href="#features" class="transition-colors duration-150 hover:text-white">Features</a>
+        <a href="#ai"       class="transition-colors duration-150 hover:text-white">AI</a>
+        <a href="#privacy"  class="transition-colors duration-150 hover:text-white">Privacy</a>
+        <a
+          href="https://github.com/PhamNgocDuyKhanh/SnapType"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-colors duration-150 hover:text-white"
+        >GitHub</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- Live Demo script — loaded last so all elements exist when it runs -->
+<script src="script.js" defer></script>
+
+</body>
+</html>

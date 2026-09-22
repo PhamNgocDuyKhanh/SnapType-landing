@@ -1,0 +1,140 @@
+/*
+  SnapType Landing Page — styles.css
+  ════════════════════════════════════════════════════════════════════
+  Custom CSS that supplements Tailwind's utility classes.
+
+  Sections:
+    1. Base / reset
+    2. Layout effects  — glows, grid background
+    3. Gradient text
+    4. Live Demo       — cursor, expansion animation, success state,
+                         custom scrollbar
+    5. Accessibility   — keyboard focus rings
+    6. Reduced-motion  — must remain last so it wins specificity
+  ════════════════════════════════════════════════════════════════════
+*/
+
+/* ── 1. Base / reset ──────────────────────────────────────────────── */
+
+html {
+  /* Prevent flash of white before body background paints */
+  background: #0F0F11;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(255, 99, 99, 0.08),
+      transparent 38%
+    ),
+    #0F0F11;
+}
+
+/* ── 2. Layout effects ───────────────────────────────────────────── */
+
+.hero-glow {
+  box-shadow:
+    0 0 100px -30px rgba(255, 99, 99, 0.25),
+    0 30px 80px -40px rgba(0, 0, 0, 0.8);
+}
+
+.card-glow {
+  box-shadow: 0 0 50px -20px rgba(255, 99, 99, 0.18);
+}
+
+/* Subtle dot-grid used as the hero section background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── 3. Gradient text ────────────────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(90deg, #FF6363, #FF9E9E);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── 4. Live Demo ────────────────────────────────────────────────── */
+
+/* Blinking caret inside the demo widget */
+.demo-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: #FF6363;
+  vertical-align: -0.2em;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Subtle slide-up applied to the textarea on a successful expansion */
+.demo-expanding {
+  animation: demoExpand 180ms ease-out;
+}
+
+@keyframes demoExpand {
+  from {
+    opacity: 0.45;
+    transform: translateY(1px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accent border + glow shown briefly after expansion */
+.demo-success {
+  border-color: rgba(255, 99, 99, 0.65) !important;
+  box-shadow:
+    0 0 0 3px rgba(255, 99, 99, 0.08),
+    0 0 35px -15px rgba(255, 99, 99, 0.45);
+}
+
+/* Custom scrollbar for the playground textarea */
+#playground {
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f46 transparent;
+}
+
+#playground::-webkit-scrollbar       { width: 7px; }
+#playground::-webkit-scrollbar-track { background: transparent; }
+#playground::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 999px;
+}
+#playground::-webkit-scrollbar-thumb:hover { background: #52525b; }
+
+/* ── 5. Accessibility ────────────────────────────────────────────── */
+
+/* Visible focus ring on <details> summaries for keyboard users.
+   Tailwind's focus-visible utilities don't target <summary> by default. */
+details > summary:focus-visible {
+  outline: 2px solid #FF6363;
+  outline-offset: 2px;
+  border-radius: 0.75rem;
+}
+
+/* ── 6. Reduced-motion (must remain last) ────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Override Tailwind's scroll-smooth class on <html> */
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:       0.01ms !important;
+  }
+}
