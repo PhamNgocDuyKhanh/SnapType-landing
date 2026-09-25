@@ -85,7 +85,7 @@
     var heading = el(
       "h2",
       "text-3xl md:text-4xl font-bold text-white",
-      ["\u2615 Support SnapType"]
+      ["\u2615 Support SnapType - Keep it going"]
     );
     heading.id = "support-heading";
 
