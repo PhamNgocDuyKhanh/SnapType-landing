@@ -32,7 +32,7 @@
 
   var VIETNAM_SUPPORT = {
     appName: "MoMo",
-    qrSrc: "assets/momo-qr.jpg",
+    qrSrc: "assets/momo-qr.png",
     qrAlt:
       "MoMo QR code for supporting SnapType \u2014 scan with the MoMo app " +
       "or your banking app, then enter any amount you'd like to contribute."
