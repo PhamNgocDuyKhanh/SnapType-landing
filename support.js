@@ -115,15 +115,15 @@
     qrImg.loading = "lazy";
     qrImg.decoding = "async";
 
-  var qrFrame = el(
-    "div",
-    "bg-white p-4 sm:p-5 rounded-2xl shadow-lg shadow-black/20 inline-flex " +
-      "transition-all duration-200 ease-out " +
-      "motion-safe:hover:scale-[1.10] " +
-      "motion-safe:hover:shadow-2xl " +
-      "cursor-pointer will-change-transform",
-    [qrImg]
-  );
+    var qrFrame = el(
+      "div",
+      "p-4 sm:p-5 rounded-2xl " +
+        "transition-all duration-200 ease-out " +
+        "motion-safe:hover:scale-[1.10] " +
+        "motion-safe:hover:shadow-2xl " +
+        "cursor-pointer will-change-transform",
+      [qrImg]
+    );
 
     var instructions = el(
       "p",
