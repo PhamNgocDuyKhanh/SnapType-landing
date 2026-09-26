@@ -119,7 +119,7 @@
     "div",
     "bg-white p-4 sm:p-5 rounded-2xl shadow-lg shadow-black/20 inline-flex " +
       "transition-all duration-200 ease-out " +
-      "motion-safe:hover:scale-[1.06] " +
+      "motion-safe:hover:scale-[1.10] " +
       "motion-safe:hover:shadow-2xl " +
       "cursor-pointer will-change-transform",
     [qrImg]
