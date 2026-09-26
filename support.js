@@ -74,36 +74,37 @@
 
   /* ── Section pieces ───────────────────────────────────────────── */
 
-  function buildHeader() {
-    var eyebrow = el(
-      "p",
-      "text-xs uppercase tracking-[0.2em] text-snap-accent font-semibold mb-4",
-      ["Support the project"]
-    );
-    eyebrow.setAttribute("aria-hidden", "true");
+ function buildHeader() {
+  var eyebrow = el(
+    "p",
+    "text-xs uppercase tracking-[0.2em] text-snap-accent font-semibold mb-4",
+    ["Support the project"]
+  );
+  eyebrow.setAttribute("aria-hidden", "true");
 
-    var heading = el(
-      "h2",
-      "text-3xl md:text-4xl font-bold text-white",
-      ["\u2615 Support SnapType - Keep it going"]
-    );
-    heading.id = "support-heading";
+  var heading = el(
+    "h2",
+    "text-3xl md:text-4xl font-bold text-white",
+    ["\u2615 Support SnapType"]
+  );
+  heading.id = "support-heading";
 
-    var lede = el(
-      "p",
-      "mt-4 text-snap-muted max-w-xl mx-auto leading-relaxed",
-      [
-        "SnapType is free and local-first. If you find it useful, you can " +
-          "support its development."
-      ]
-    );
+  var lede = el(
+    "p",
+    "mt-4 text-snap-muted max-w-xl mx-auto leading-relaxed",
+    [
+      "This extension is free and will stay free.",
+      el("br"),
+      "If it saves you some time, consider buying me a coffee to support its development"
+    ]
+  );
 
-    return el("div", "text-center max-w-2xl mx-auto mb-12", [
-      eyebrow,
-      heading,
-      lede
-    ]);
-  }
+  return el("div", "text-center max-w-2xl mx-auto mb-12", [
+    eyebrow,
+    heading,
+    lede
+  ]);
+}
 
   function buildVietnamCard(config) {
     var qrImg = el("img", "w-48 h-auto sm:w-56 rounded-lg");
@@ -114,11 +115,15 @@
     qrImg.loading = "lazy";
     qrImg.decoding = "async";
 
-    var qrFrame = el(
-      "div",
-      "bg-white p-4 sm:p-5 rounded-2xl shadow-lg shadow-black/20 inline-flex",
-      [qrImg]
-    );
+  var qrFrame = el(
+    "div",
+    "bg-white p-4 sm:p-5 rounded-2xl shadow-lg shadow-black/20 inline-flex " +
+      "transition-all duration-200 ease-out " +
+      "motion-safe:hover:scale-[1.06] " +
+      "motion-safe:hover:shadow-2xl " +
+      "cursor-pointer will-change-transform",
+    [qrImg]
+  );
 
     var instructions = el(
       "p",
@@ -126,7 +131,7 @@
       [
         "Scan with " +
           config.appName +
-          " or your banking app and enter any amount you'd like to contribute."
+          " or your banking app."
       ]
     );
 
